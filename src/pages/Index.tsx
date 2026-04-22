@@ -6,6 +6,7 @@ import { ExpenseChart } from "@/components/dashboard/ExpenseChart";
 import { TrendChart } from "@/components/dashboard/TrendChart";
 import { AlertsList } from "@/components/dashboard/AlertsList";
 import { RecentTransactions } from "@/components/dashboard/RecentTransactions";
+import { Loader2 } from "lucide-react";
 
 // Mock data - will be replaced with real data from backend
 const mockData = {
@@ -109,8 +110,26 @@ const mockData = {
   ],
 };
 
+import { AddTransactionDialog } from "@/components/dashboard/AddTransactionDialog";
+
 const Index = () => {
   const [userName, setUserName] = React.useState("User");
+  const [dashboardData, setDashboardData] = React.useState<any>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const fetchDashboardData = async () => {
+    try {
+      const response = await fetch("/api/dashboard");
+      if (response.ok) {
+        const data = await response.json();
+        setDashboardData(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch dashboard data", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   React.useEffect(() => {
     const userStr = localStorage.getItem("user");
@@ -122,43 +141,61 @@ const Index = () => {
         console.error("Failed to parse user data", e);
       }
     }
+    fetchDashboardData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <DashboardLayout>
+        <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
+          <Loader2 className="w-12 h-12 animate-spin text-primary" />
+          <p className="text-lg font-medium text-muted-foreground">Analysing your intelligence...</p>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="pt-12 lg:pt-0">
-          <h1 className="text-2xl lg:text-3xl font-bold">
-            Welcome back, <span className="gradient-text">{userName}</span>
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            Here's your financial overview for January 2026
-          </p>
+        <div className="pt-12 lg:pt-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl lg:text-3xl font-bold">
+              Welcome back, <span className="gradient-text">{userName}</span>
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              Here's your real-time financial overview
+            </p>
+          </div>
+          <AddTransactionDialog onSuccess={fetchDashboardData} />
         </div>
 
         {/* Quick Stats */}
         <QuickStats
-          totalIncome={mockData.totalIncome}
-          totalExpense={mockData.totalExpense}
-          savingsPercentage={mockData.savingsPercentage}
-          previousIncome={mockData.previousIncome}
-          previousExpense={mockData.previousExpense}
+          totalIncome={dashboardData?.totalIncome || 0}
+          totalExpense={dashboardData?.totalExpense || 0}
+          savingsPercentage={dashboardData?.savingsPercentage || 0}
+          previousIncome={0}
+          previousExpense={0}
         />
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Health Score */}
           <HealthScoreCard
-            score={mockData.healthScore}
-            previousScore={mockData.previousHealthScore}
-            factors={mockData.healthFactors}
+            score={dashboardData?.healthScore || 0}
+            previousScore={0}
+            factors={[
+              { label: "Savings Target", status: dashboardData?.savingsPercentage >= 20 ? "good" : "warning" },
+              { label: "Budget Adherence", status: "good" }
+            ]}
           />
 
-          {/* Expense Breakdown */}
+          {/* Expense Breakdown (placeholder categories from real data if needed, or keeping static for now) */}
           <ExpenseChart data={mockData.expensesByCategory} />
 
-          {/* Alerts */}
+          {/* Alerts (simplified for now) */}
           <AlertsList alerts={mockData.alerts} />
         </div>
 
@@ -168,7 +205,7 @@ const Index = () => {
           <TrendChart data={mockData.monthlyTrend} />
 
           {/* Recent Transactions */}
-          <RecentTransactions transactions={mockData.recentTransactions} />
+          <RecentTransactions transactions={dashboardData?.recentTransactions || []} />
         </div>
       </div>
     </DashboardLayout>
