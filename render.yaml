@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: pfis-fullstack
+    env: python
+    buildCommand: "npm install && npm run build && pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
+    envVars:
+      - key: NODE_VERSION
+        value: 20.x
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PORT
+        value: 5000
+    disk:
+      name: pfis-db-storage
+      mountPath: /data
+      sizeGB: 1

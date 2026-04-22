@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 222 30% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 25% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 25% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 175 80% 45%;
+    --primary-foreground: 222 30% 6%;
+
+    --secondary: 222 20% 16%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 20% 14%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 175 80% 45%;
+    --accent-foreground: 222 30% 6%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 150 70% 45%;
+    --success-foreground: 222 30% 6%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 222 30% 6%;
+
+    --border: 222 20% 18%;
+    --input: 222 20% 18%;
+    --ring: 175 80% 45%;
+
+    --radius: 0.75rem;
+
+    /* Custom fintech tokens */
+    --glass: 222 25% 12% / 0.7;
+    --glass-border: 222 20% 25% / 0.5;
+    --glow-primary: 175 80% 45% / 0.3;
+    --glow-success: 150 70% 45% / 0.3;
+    --glow-destructive: 0 72% 55% / 0.3;
+
+    --sidebar-background: 222 30% 5%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 175 80% 45%;
+    --sidebar-primary-foreground: 222 30% 6%;
+    --sidebar-accent: 222 20% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 20% 15%;
+    --sidebar-ring: 175 80% 45%;
+  }
+
+  .dark {
+    --background: 222 30% 6%;
+    --foreground: 210 40% 98%;
+    --card: 222 25% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 25% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 175 80% 45%;
+    --primary-foreground: 222 30% 6%;
+    --secondary: 222 20% 16%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 222 20% 14%;
+    --muted-foreground: 215 20% 55%;
+    --accent: 175 80% 45%;
+    --accent-foreground: 222 30% 6%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 222 20% 18%;
+    --input: 222 20% 18%;
+    --ring: 175 80% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/70 backdrop-blur-xl border border-border/50 rounded-xl;
+    box-shadow: 
+      0 4px 24px -4px hsl(var(--glow-primary)),
+      inset 0 1px 0 0 hsl(var(--glass-border));
+  }
+
+  .glass-card-success {
+    @apply bg-card/70 backdrop-blur-xl border border-success/20 rounded-xl;
+    box-shadow: 
+      0 4px 24px -4px hsl(var(--glow-success)),
+      inset 0 1px 0 0 hsl(var(--glass-border));
+  }
+
+  .glass-card-danger {
+    @apply bg-card/70 backdrop-blur-xl border border-destructive/20 rounded-xl;
+    box-shadow: 
+      0 4px 24px -4px hsl(var(--glow-destructive)),
+      inset 0 1px 0 0 hsl(var(--glass-border));
+  }
+
+  .metric-ring {
+    @apply relative flex items-center justify-center;
+  }
+
+  .metric-ring svg {
+    transform: rotate(-90deg);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-success bg-clip-text text-transparent;
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground 
+           hover:text-foreground hover:bg-secondary/50 transition-all duration-200;
+  }
+
+  .sidebar-link-active {
+    @apply flex items-center gap-3 px-4 py-3 rounded-lg text-primary bg-primary/10 
+           border border-primary/20;
+  }
+
+  .stat-value {
+    @apply text-3xl font-bold tracking-tight;
+  }
+
+  .stat-label {
+    @apply text-sm text-muted-foreground font-medium;
+  }
+
+  .chart-container {
+    @apply glass-card p-6;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 
+           px-4 py-2 rounded-lg font-medium transition-all duration-200
+           shadow-lg shadow-primary/20 hover:shadow-primary/30;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 
+           px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  }
+
+  .input-field {
+    @apply bg-secondary/50 border border-border rounded-lg px-4 py-2.5 
+           text-foreground placeholder:text-muted-foreground
+           focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary
+           transition-all duration-200;
+  }
+
+  .alert-card {
+    @apply glass-card p-4 border-l-4;
+  }
+
+  .alert-warning {
+    @apply alert-card border-l-warning bg-warning/5;
+  }
+
+  .alert-danger {
+    @apply alert-card border-l-destructive bg-destructive/5;
+  }
+
+  .alert-success {
+    @apply alert-card border-l-success bg-success/5;
+  }
+}
+
+@layer utilities {
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px -10px hsl(var(--primary));
+    }
+    to {
+      box-shadow: 0 0 30px -5px hsl(var(--primary));
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
