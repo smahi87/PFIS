@@ -76,8 +76,8 @@ export function RecentTransactions({ transactions, maxItems = 5 }: RecentTransac
                   transaction.type === "income" ? "text-success" : "text-destructive"
                 }`}
               >
-                {transaction.type === "income" ? "+" : "-"}$
-                {transaction.amount.toLocaleString()}
+                {transaction.type === "income" ? "+" : "-"}₹
+                {transaction.amount.toLocaleString('en-IN')}
               </p>
               <p className="text-sm text-muted-foreground">{transaction.date}</p>
             </div>

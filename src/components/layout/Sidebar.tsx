@@ -30,6 +30,19 @@ export function Sidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const location = useLocation();
 
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      localStorage.removeItem("user");
+      setIsMobileOpen(false);
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
   return (
     <>
       {/* Mobile menu button */}
@@ -99,7 +112,10 @@ export function Sidebar() {
 
           {/* User section */}
           <div className="p-4 border-t border-sidebar-border">
-            <button className="sidebar-link w-full">
+            <button 
+              onClick={handleLogout}
+              className="sidebar-link w-full text-destructive hover:bg-destructive/10"
+            >
               <LogOut size={20} />
               {!isCollapsed && <span>Sign Out</span>}
             </button>

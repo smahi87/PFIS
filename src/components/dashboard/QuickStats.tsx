@@ -29,7 +29,7 @@ export function QuickStats({
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <MetricCard
         title="Total Income"
-        value={`$${totalIncome.toLocaleString()}`}
+        value={`₹${totalIncome.toLocaleString('en-IN')}`}
         trend={incomeTrend > 0 ? "up" : incomeTrend < 0 ? "down" : "neutral"}
         trendValue={`${Math.abs(incomeTrend).toFixed(1)}%`}
         icon={<TrendingUp className="w-6 h-6" />}
@@ -37,7 +37,7 @@ export function QuickStats({
       />
       <MetricCard
         title="Total Expense"
-        value={`$${totalExpense.toLocaleString()}`}
+        value={`₹${totalExpense.toLocaleString('en-IN')}`}
         trend={expenseTrend > 0 ? "up" : expenseTrend < 0 ? "down" : "neutral"}
         trendValue={`${Math.abs(expenseTrend).toFixed(1)}%`}
         icon={<TrendingDown className="w-6 h-6" />}
@@ -45,7 +45,7 @@ export function QuickStats({
       />
       <MetricCard
         title="Net Balance"
-        value={`$${Math.abs(balance).toLocaleString()}`}
+        value={`₹${Math.abs(balance).toLocaleString('en-IN')}`}
         subtitle={balance >= 0 ? "Surplus" : "Deficit"}
         icon={<Wallet className="w-6 h-6" />}
         variant={balance >= 0 ? "success" : "danger"}
