@@ -1,6 +1,7 @@
+import * as React from "react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { TrendingUp, Lock, User, Loader2, Mail } from "lucide-react";
+import { TrendingUp, Lock, User, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 const Register = () => {
@@ -9,6 +10,11 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) navigate("/", { replace: true });
+  }, [navigate]);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();

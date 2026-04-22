@@ -1,3 +1,4 @@
+import * as React from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { QuickStats } from "@/components/dashboard/QuickStats";
 import { HealthScoreCard } from "@/components/dashboard/HealthScoreCard";
@@ -109,13 +110,27 @@ const mockData = {
 };
 
 const Index = () => {
+  const [userName, setUserName] = React.useState("User");
+
+  React.useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        setUserName(user.username || "User");
+      } catch (e) {
+        console.error("Failed to parse user data", e);
+      }
+    }
+  }, []);
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
         {/* Header */}
         <div className="pt-12 lg:pt-0">
           <h1 className="text-2xl lg:text-3xl font-bold">
-            Welcome back, <span className="gradient-text">Alex</span>
+            Welcome back, <span className="gradient-text">{userName}</span>
           </h1>
           <p className="text-muted-foreground mt-1">
             Here's your financial overview for January 2026
