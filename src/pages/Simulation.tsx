@@ -202,6 +202,8 @@ export default function Simulation() {
               <div className="space-y-6">
                 {/* Comparison */}
                 <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-secondary/30">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Current</p>
                     <div className="mt-2">
                       <p className="text-sm text-muted-foreground">Savings</p>
                       <p className="text-xl font-bold">₹{currentSavings.toLocaleString('en-IN')}</p>
