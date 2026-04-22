@@ -13,16 +13,16 @@ interface Transaction {
 }
 
 const mockTransactions: Transaction[] = [
-  { id: "1", type: "expense", category: "Food", amount: 45.50, date: "2026-01-20", description: "Grocery Store", paymentMode: "card" },
-  { id: "2", type: "income", category: "Salary", amount: 4250, date: "2026-01-15", description: "Monthly Salary", paymentMode: "bank" },
-  { id: "3", type: "expense", category: "Transport", amount: 55, date: "2026-01-14", description: "Gas Station", paymentMode: "card" },
-  { id: "4", type: "expense", category: "Utilities", amount: 120, date: "2026-01-12", description: "Electric Bill", paymentMode: "bank" },
-  { id: "5", type: "expense", category: "Entertainment", amount: 15.99, date: "2026-01-10", description: "Streaming Service", paymentMode: "card" },
-  { id: "6", type: "expense", category: "Shopping", amount: 89.99, date: "2026-01-08", description: "Online Purchase", paymentMode: "card" },
-  { id: "7", type: "income", category: "Freelance", amount: 500, date: "2026-01-05", description: "Side Project", paymentMode: "bank" },
-  { id: "8", type: "expense", category: "Food", amount: 32.00, date: "2026-01-03", description: "Restaurant", paymentMode: "upi" },
-  { id: "9", type: "expense", category: "Housing", amount: 1800, date: "2026-01-01", description: "Rent Payment", paymentMode: "bank" },
-  { id: "10", type: "income", category: "Investment", amount: 150, date: "2025-12-28", description: "Dividend Income", paymentMode: "bank" },
+  { id: "1", type: "expense", category: "Food", amount: 450, date: "2026-01-20", description: "Zomato Order", paymentMode: "upi" },
+  { id: "2", type: "income", category: "Salary", amount: 75000, date: "2026-01-15", description: "Monthly Salary", paymentMode: "bank" },
+  { id: "3", type: "expense", category: "Transport", amount: 850, date: "2026-01-14", description: "Uber Ride", paymentMode: "upi" },
+  { id: "4", type: "expense", category: "Utilities", amount: 2100, date: "2026-01-12", description: "Electricity Bill", paymentMode: "bank" },
+  { id: "5", type: "expense", category: "Entertainment", amount: 999, date: "2026-01-10", description: "Netflix Subscription", paymentMode: "card" },
+  { id: "6", type: "expense", category: "Shopping", amount: 5000, date: "2026-01-08", description: "Amazon Purchase", paymentMode: "upi" },
+  { id: "7", type: "income", category: "Freelance", amount: 15000, date: "2026-01-05", description: "Web Dev Project", paymentMode: "bank" },
+  { id: "8", type: "expense", category: "Food", amount: 1200, date: "2026-01-03", description: "Restaurant Dinner", paymentMode: "upi" },
+  { id: "9", type: "expense", category: "Housing", amount: 15000, date: "2026-01-01", description: "Rent Payment", paymentMode: "bank" },
+  { id: "10", type: "income", category: "Investment", amount: 2500, date: "2025-12-28", description: "Stock Dividends", paymentMode: "bank" },
 ];
 
 const categories = ["All", "Food", "Housing", "Transport", "Utilities", "Entertainment", "Shopping", "Salary", "Freelance", "Investment"];
@@ -168,8 +168,8 @@ export default function Transactions() {
                           transaction.type === "income" ? "text-success" : "text-destructive"
                         }`}
                       >
-                        {transaction.type === "income" ? "+" : "-"}$
-                        {transaction.amount.toLocaleString()}
+                        {transaction.type === "income" ? "+" : "-"}₹
+                        {transaction.amount.toLocaleString('en-IN')}
                       </span>
                     </td>
                   </tr>

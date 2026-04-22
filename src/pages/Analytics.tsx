@@ -4,37 +4,37 @@ import { TrendChart } from "@/components/dashboard/TrendChart";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
 
 const monthlyData = [
-  { month: "Aug", income: 7200, expense: 4500 },
-  { month: "Sep", income: 7500, expense: 4800 },
-  { month: "Oct", income: 7800, expense: 5100 },
-  { month: "Nov", income: 7800, expense: 4900 },
-  { month: "Dec", income: 8200, expense: 5500 },
-  { month: "Jan", income: 8500, expense: 5200 },
+  { month: "Aug", income: 65000, expense: 42000 },
+  { month: "Sep", income: 65000, expense: 43000 },
+  { month: "Oct", income: 70000, expense: 48000 },
+  { month: "Nov", income: 70000, expense: 45000 },
+  { month: "Dec", income: 72000, expense: 45000 },
+  { month: "Jan", income: 75000, expense: 42000 },
 ];
 
 const expensesByCategory = [
-  { name: "Housing", value: 1800, color: "hsl(175, 80%, 45%)" },
-  { name: "Food", value: 850, color: "hsl(150, 70%, 45%)" },
-  { name: "Transport", value: 420, color: "hsl(38, 92%, 50%)" },
-  { name: "Utilities", value: 280, color: "hsl(280, 60%, 55%)" },
-  { name: "Entertainment", value: 350, color: "hsl(0, 72%, 55%)" },
-  { name: "Shopping", value: 500, color: "hsl(200, 70%, 50%)" },
+  { name: "Rent", value: 15000, color: "hsl(175, 80%, 45%)" },
+  { name: "Food", value: 12000, color: "hsl(150, 70%, 45%)" },
+  { name: "Transport", value: 4500, color: "hsl(38, 92%, 50%)" },
+  { name: "Utilities", value: 3200, color: "hsl(280, 60%, 55%)" },
+  { name: "Entertainment", value: 1500, color: "hsl(0, 72%, 55%)" },
+  { name: "Shopping", value: 5000, color: "hsl(200, 70%, 50%)" },
 ];
 
 const paymentModeData = [
-  { name: "Card", value: 2800, percentage: 54 },
-  { name: "Bank", value: 1600, percentage: 31 },
-  { name: "UPI", value: 500, percentage: 10 },
-  { name: "Cash", value: 300, percentage: 5 },
+  { name: "UPI", value: 25000, percentage: 60 },
+  { name: "Bank", value: 12000, percentage: 28 },
+  { name: "Card", value: 4000, percentage: 10 },
+  { name: "Cash", value: 1000, percentage: 2 },
 ];
 
 const savingsData = [
-  { month: "Aug", savings: 2700, target: 2500 },
-  { month: "Sep", savings: 2700, target: 2500 },
-  { month: "Oct", savings: 2700, target: 2500 },
-  { month: "Nov", savings: 2900, target: 2500 },
-  { month: "Dec", savings: 2700, target: 2500 },
-  { month: "Jan", savings: 3300, target: 2500 },
+  { month: "Aug", savings: 23000, target: 20000 },
+  { month: "Sep", savings: 22000, target: 20000 },
+  { month: "Oct", savings: 22000, target: 20000 },
+  { month: "Nov", savings: 25000, target: 20000 },
+  { month: "Dec", savings: 27000, target: 20000 },
+  { month: "Jan", savings: 33000, target: 20000 },
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -44,7 +44,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         <p className="font-medium mb-2">{label}</p>
         {payload.map((entry: any, index: number) => (
           <p key={index} style={{ color: entry.color }} className="text-sm">
-            {entry.name}: ${entry.value.toLocaleString()}
+            {entry.name}: ₹{entry.value.toLocaleString('en-IN')}
           </p>
         ))}
       </div>
@@ -80,7 +80,7 @@ export default function Analytics() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={paymentModeData} layout="vertical">
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(222, 20%, 18%)" horizontal={false} />
-                  <XAxis type="number" stroke="hsl(215, 20%, 55%)" fontSize={12} tickFormatter={(v) => `$${v}`} />
+                  <XAxis type="number" stroke="hsl(215, 20%, 55%)" fontSize={12} tickFormatter={(v) => `₹${v}`} />
                   <YAxis type="category" dataKey="name" stroke="hsl(215, 20%, 55%)" fontSize={12} width={60} />
                   <Tooltip content={<CustomTooltip />} />
                   <Bar dataKey="value" fill="hsl(175, 80%, 45%)" radius={[0, 4, 4, 0]} />
@@ -110,7 +110,7 @@ export default function Analytics() {
                 <LineChart data={savingsData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(222, 20%, 18%)" />
                   <XAxis dataKey="month" stroke="hsl(215, 20%, 55%)" fontSize={12} />
-                  <YAxis stroke="hsl(215, 20%, 55%)" fontSize={12} tickFormatter={(v) => `$${(v/1000).toFixed(1)}k`} />
+                  <YAxis stroke="hsl(215, 20%, 55%)" fontSize={12} tickFormatter={(v) => `₹${(v/1000).toFixed(0)}k`} />
                   <Tooltip content={<CustomTooltip />} />
                   <Line 
                     type="monotone" 

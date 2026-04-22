@@ -11,25 +11,25 @@ interface SimulationResult {
 
 export default function Simulation() {
   const [scenarioType, setScenarioType] = useState<"reduce" | "increase">("reduce");
-  const [category, setCategory] = useState("Food");
+  const [category, setCategory] = useState("Rent");
   const [percentage, setPercentage] = useState(10);
-  const [incomeIncrease, setIncomeIncrease] = useState(500);
+  const [incomeIncrease, setIncomeIncrease] = useState(5000);
   const [result, setResult] = useState<SimulationResult | null>(null);
 
   // Current baseline (mock data)
-  const currentIncome = 8500;
-  const currentExpense = 5200;
+  const currentIncome = 75000;
+  const currentExpense = 42000;
   const currentSavings = currentIncome - currentExpense;
   const currentSavingsRate = (currentSavings / currentIncome) * 100;
-  const currentHealthScore = 72;
+  const currentHealthScore = 78;
 
   const categoryExpenses: Record<string, number> = {
-    Food: 850,
-    Housing: 1800,
-    Transport: 420,
-    Utilities: 280,
-    Entertainment: 350,
-    Shopping: 500,
+    Rent: 15000,
+    Food: 12000,
+    Transport: 4500,
+    Utilities: 3200,
+    Entertainment: 1500,
+    Shopping: 5000,
   };
 
   const runSimulation = () => {
@@ -125,7 +125,7 @@ export default function Simulation() {
                     >
                       {Object.keys(categoryExpenses).map((cat) => (
                         <option key={cat} value={cat}>
-                          {cat} (${categoryExpenses[cat]}/month)
+                          {cat} (₹{categoryExpenses[cat].toLocaleString('en-IN')}/month)
                         </option>
                       ))}
                     </select>
@@ -153,7 +153,7 @@ export default function Simulation() {
                   <div className="p-4 rounded-xl bg-secondary/30">
                     <p className="text-sm text-muted-foreground">Estimated Reduction</p>
                     <p className="text-xl font-bold text-success">
-                      ${(categoryExpenses[category] * (percentage / 100)).toFixed(0)}/month
+                      ₹{(categoryExpenses[category] * (percentage / 100)).toLocaleString('en-IN')}/month
                     </p>
                   </div>
                 </>
@@ -174,7 +174,7 @@ export default function Simulation() {
                   <div className="p-4 rounded-xl bg-secondary/30">
                     <p className="text-sm text-muted-foreground">New Total Income</p>
                     <p className="text-xl font-bold text-success">
-                      ${(currentIncome + incomeIncrease).toLocaleString()}/month
+                      ₹{(currentIncome + incomeIncrease).toLocaleString('en-IN')}/month
                     </p>
                   </div>
                 </>
@@ -202,11 +202,9 @@ export default function Simulation() {
               <div className="space-y-6">
                 {/* Comparison */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-secondary/30">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Current</p>
                     <div className="mt-2">
                       <p className="text-sm text-muted-foreground">Savings</p>
-                      <p className="text-xl font-bold">${currentSavings.toLocaleString()}</p>
+                      <p className="text-xl font-bold">₹{currentSavings.toLocaleString('en-IN')}</p>
                     </div>
                     <div className="mt-2">
                       <p className="text-sm text-muted-foreground">Rate</p>
@@ -217,7 +215,7 @@ export default function Simulation() {
                     <p className="text-xs text-success uppercase tracking-wide">Projected</p>
                     <div className="mt-2">
                       <p className="text-sm text-muted-foreground">Savings</p>
-                      <p className="text-xl font-bold text-success">${result.newSavings.toLocaleString()}</p>
+                      <p className="text-xl font-bold text-success">₹{result.newSavings.toLocaleString('en-IN')}</p>
                     </div>
                     <div className="mt-2">
                       <p className="text-sm text-muted-foreground">Rate</p>
@@ -259,7 +257,7 @@ export default function Simulation() {
                 <div className="pt-4 border-t border-border/50">
                   <p className="text-sm text-muted-foreground mb-2">Annual Projection</p>
                   <p className="text-2xl font-bold gradient-text">
-                    +${((result.newSavings - currentSavings) * 12).toLocaleString()}/year
+                    +₹{((result.newSavings - currentSavings) * 12).toLocaleString('en-IN')}/year
                   </p>
                   <p className="text-sm text-muted-foreground">Additional savings potential</p>
                 </div>
