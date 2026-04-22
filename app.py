@@ -47,6 +47,12 @@ def init_db():
         )
     """)
 
+    # Migration: Add description column if it doesn't exist
+    try:
+        cursor.execute("ALTER TABLE transactions ADD COLUMN description TEXT")
+    except sqlite3.OperationalError:
+        pass # Column already exists
+
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS rules (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -11,7 +11,7 @@ interface Transaction {
   amount: number;
   date: string;
   description: string;
-  payment_mode: "cash" | "card" | "upi" | "bank";
+  mode: "cash" | "card" | "upi" | "bank";
 }
 
 const categories = ["All", "Food", "Housing", "Transport", "Utilities", "Entertainment", "Shopping", "Salary", "Freelance", "Investment"];
@@ -47,7 +47,7 @@ export default function Transactions() {
     const matchesSearch = t.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "All" || t.category === selectedCategory;
     const matchesType = selectedType === "all" || t.type === selectedType;
-    const matchesPayment = selectedPayment === "All" || t.payment_mode === selectedPayment.toLowerCase();
+    const matchesPayment = selectedPayment === "All" || t.mode === selectedPayment.toLowerCase();
     return matchesSearch && matchesCategory && matchesType && matchesPayment;
   });
 
@@ -180,7 +180,7 @@ export default function Transactions() {
                         </span>
                       </td>
                       <td className="p-4 text-muted-foreground capitalize">
-                        {transaction.payment_mode}
+                        {transaction.mode}
                       </td>
                       <td className="p-4 text-muted-foreground">
                         {new Date(transaction.date).toLocaleDateString()}
