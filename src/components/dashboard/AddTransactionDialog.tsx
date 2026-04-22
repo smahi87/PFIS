@@ -25,7 +25,7 @@ export function AddTransactionDialog({ onSuccess, children }: AddTransactionDial
     const formData = new FormData(e.currentTarget);
     const data = {
       description: formData.get("description"),
-      amount: formData.get("amount"),
+      amount: Number(formData.get("amount")),
       category: formData.get("category"),
       type: formData.get("type"),
       mode: formData.get("payment_mode"),

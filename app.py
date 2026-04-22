@@ -179,13 +179,20 @@ def transactions_api():
 
     conn = get_db_connection()
     if request.method == 'POST':
-        data = request.json
-        conn.execute(
-            "INSERT INTO transactions (user_id, type, category, amount, date, mode, description) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (user_id, data['type'], data['category'], data['amount'], data['date'], data.get('mode', 'cash'), data.get('description', ''))
-        )
-        conn.commit()
-        return jsonify({"message": "Transaction added"}), 201
+        try:
+            data = request.json
+            print(f"Adding transaction for user {user_id}: {data}")
+            conn.execute(
+                "INSERT INTO transactions (user_id, type, category, amount, date, mode, description) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (user_id, data['type'], data['category'], data['amount'], data['date'], data.get('mode', 'cash'), data.get('description', ''))
+            )
+            conn.commit()
+            return jsonify({"message": "Transaction added"}), 201
+        except Exception as e:
+            print(f"Error adding transaction: {e}")
+            return jsonify({"error": str(e)}), 500
+        finally:
+            conn.close()
     
     transactions = [dict(row) for row in conn.execute("SELECT * FROM transactions WHERE user_id = ?", (user_id,)).fetchall()]
     conn.close()
